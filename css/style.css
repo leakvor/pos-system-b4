@@ -1,0 +1,159 @@
+* {
+    font-family: sans-serif;
+    list-style-type: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 8% 30% 62%;
+    grid-template-areas:
+        "nav_top nav_top "
+        "nav_left content "
+        "nav_left content ";
+}
+
+/* .nav {
+    grid-area: nav;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #3d434f;
+    opacity: .9;
+    padding-top: 60px;
+    transition: 0.7s;
+    overflow-x: hidden;
+} */
+
+.nav_left {
+    grid-area: nav_left;
+    background: rgb(43, 142, 104);
+}
+
+.nav_left ul {
+    padding: 0;
+    margin-left: 10px;
+}
+
+.nav_left ul li:hover {
+    border-left: 9px solid rgb(124, 152, 180);
+    background-color: rgb(124, 152, 180);
+
+}
+
+li {
+    color: white;
+}
+
+a {
+    display: block;
+    padding: 20px 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+a:hover {
+    color: #fff;
+    transition: 0.5s;
+}
+
+
+.nav_top {
+    grid-area: nav_top;
+    background-color: rgb(34, 156, 131);
+    display: flex;
+    color: white;
+}
+.logo{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    margin:0px 50px 0px 50px;
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 20% 80%;
+    grid-template-areas:
+        "content_product_sold"
+        "table_sold_product";
+
+}
+
+.content .content_product_sold {
+    grid-area: content_product_sold;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    margin-top: 30px;
+    width: 15%;
+    height: 75%;
+    border-radius: 5px;
+    border-top: 4px solid red;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card span{
+    text-align: center;
+}
+.show_product_sold {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.content .table_sold_product {
+    grid-template-areas: table_sold_product;
+    display: flex;
+    flex-direction: column;
+    /* background-color: blanchedalmond; */
+}
+
+.content .table_sold_product h1{
+    text-align: center;
+}
+
+.content-table{
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.5cm;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    /* overflow: hidden; */
+    /* box-shadow: 0 0 20px rgba(0,0,0,12); */
+}
+
+.content-table thead tr{
+    background-color: #009879;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+.content-table th,
+.content-table td{
+    padding: 12px 15px;
+}
+
+.content-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-child(even){
+    background-color: #fbf7f7;
+}
+
+
+
+
