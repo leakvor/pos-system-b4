@@ -33,7 +33,7 @@ body {
 
 .nav_left {
     grid-area: nav_left;
-    background: rgb(43, 142, 104);
+    background: black;
 }
 
 .nav_left ul {
@@ -67,7 +67,7 @@ a:hover {
 
 .nav_top {
     grid-area: nav_top;
-    background-color: rgb(34, 156, 131);
+    background-color: rgba(10, 49, 82, 0.926);
     display: flex;
     color: white;
 }
@@ -131,8 +131,6 @@ a:hover {
     font-size: 0.5cm;
     min-width: 400px;
     border-radius: 5px 5px 0 0;
-    /* overflow: hidden; */
-    /* box-shadow: 0 0 20px rgba(0,0,0,12); */
 }
 
 .content-table thead tr{
