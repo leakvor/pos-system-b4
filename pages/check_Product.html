@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="../js/product.js" defer></script>
+</head>
+<body>
+    <div class="nav_left">
+        <ul>
+            <li><a href="/index.html"></a>
+                <div class="group_icon">
+                    <i class="material-icons">dashboard</i>
+                    <span>Daseboard</span>
+                </div>
+            </li>
+            <li><a href="#"></a>
+                <i class="material-icons">shopping_cart</i>
+                <span>Product</span>
+            </li>
+            <li><a href="../pages/check_categories.html"></a>
+                <i class="material-icons">reorder</i>
+                <span>Categories</span>
+
+            </li>
+            <li><a href="../pages/order.html"></a>
+                <i class="material-icons">add_shopping_cart</i>
+                <span>Order</span>
+            </li>
+        </ul>
+    </div>
+    <div class="nav_top">
+        <div class="logo">
+            <i class="material-icons">shopping_cart</i>
+            <h3>Pos-System</h3>
+        </div>
+
+    </div>
+    <div id="addProduct_dialog" style="display: none">
+        <dialog open>
+            <header>Create new Product</header>
+            <div class="group-input">
+                <label>Name: </label>
+                <input type="text" class="name">
+            </div>
+            <div class="group-input">
+                <label>Category: </label>
+                <input type="text" class="category">
+            </div>
+            <div class="group-input">
+                <label>Net Price: </label>
+                <input type="number" class="netPrice">
+            </div>
+            <div class="group-input">
+                <label>Gross price:</label>
+                <input type="number" class="grossPrice">
+            </div>
+            <div class="group-input">
+                <label>Quantity: </label>
+                <input type="number" class="quantity">
+            </div>
+            <div class="group-input">
+                <label>Discription</label>
+                <textarea name="text" id="" cols="30" rows="2" class="descript"></textarea>
+            </div>
+            <menu>
+                <button onclick="onCancel()">Cancel</button>
+                <button onclick="addProduct()">Create</button>
+            </menu>
+        </dialog>
+    </div>
+    <div class="content-of-product">
+        <div class="content-product">
+            <button onclick="onAddProduct()">Add Product</button>
+            <div class="filter_product">
+                <label>Filter product:</label>
+                <select name="answer" id="correct">
+                    <option value="A">Banana</option>
+                    <option value="B">papaya</option>
+                    <option value="C">Apple</option>
+                </select>
+            </div>
+            <div class="search-product">
+                <input type="text" class="search_product" placeholder="Search category of product">
+            </div>
+        </div>
+        <div class="table-product">
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Pruduct ID</th>
+                        <th>Product Name</th>
+                        <th>Categories</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
