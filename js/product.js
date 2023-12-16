@@ -214,6 +214,20 @@ function deleteProduct(event) {
     window.location.reload();
 }
 
+//  ========================Search Product==================================
+const search_product = () => {
+    let tr = document.querySelector('.content-table tbody').childNodes
+    for (const tablerow of tr) {
+        console.log(tablerow.firstElementChild.nextElementSibling.textContent);
+        let title = tablerow.firstElementChild.nextElementSibling.textContent;
+        if (title.toLowerCase().includes(searchProduct.value.toLowerCase())) {
+            tablerow.style.display = ''
+        } else {
+            tablerow.style.display = 'none'
+        }
+    }
+}
+searchProduct.addEventListener("keyup",search_product)
 getProduct()
 showPoduct()
 for (let j = 0; j < categoryData.length; j++) {
