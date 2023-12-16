@@ -7,13 +7,14 @@
     <title>Page product</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="../js/product.js" defer></script>
 </head>
+
 <body>
     <div class="nav_left">
         <ul>
-            <li><a href="/index.html"></a>
+            <li><a href="../index.html"></a>
                 <div class="group_icon">
                     <i class="material-icons">dashboard</i>
                     <span>Daseboard</span>
@@ -23,12 +24,12 @@
                 <i class="material-icons">shopping_cart</i>
                 <span>Product</span>
             </li>
-            <li><a href="../pages/check_categories.html"></a>
+            <li><a href="check_categories.html"></a>
                 <i class="material-icons">reorder</i>
                 <span>Categories</span>
 
             </li>
-            <li><a href="../pages/order.html"></a>
+            <li><a href="order.html"></a>
                 <i class="material-icons">add_shopping_cart</i>
                 <span>Order</span>
             </li>
@@ -48,9 +49,11 @@
                 <label>Name: </label>
                 <input type="text" class="name">
             </div>
-            <div class="group-input">
+            <div class="group-input-option">
                 <label>Category: </label>
-                <input type="text" class="category">
+                <select name="category" id="optionOfcategory">
+                    <option value="Choose Category">Choose Category</option>
+                </select>
             </div>
             <div class="group-input">
                 <label>Net Price: </label>
@@ -69,24 +72,51 @@
                 <textarea name="text" id="" cols="30" rows="2" class="descript"></textarea>
             </div>
             <menu>
-                <button onclick="onCancel()">Cancel</button>
-                <button onclick="addProduct()">Create</button>
+                <button onclick="onCancel()" class="btn-click">Cancel</button>
+                <button onclick="addProduct()" class="btn-click">Create</button>
+            </menu>
+        </dialog>
+    </div>
+    <div id="view_dialog" style="display: none">
+        <dialog open>
+            <header>Product details</header>
+            <div class="form_group">
+                <h4><span>Name: </span><span class="proName"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Category: </span><span class="proCategory"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Quantity: </span><span class="showquantity"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Quantity in stock: </span><span class="instock"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Net Price: </span><span class="netprice"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Gross Price: </span><span class="grossprice"></span></h4>
+            </div>
+            <div class="form_group">
+                <h4><span>Description: </span><span class="showdescription"></span></h4>
+            </div>
+            <menu>
+                <button onclick="onCancel()" class="click"></button>>Cancel</button>
             </menu>
         </dialog>
     </div>
     <div class="content-of-product">
         <div class="content-product">
-            <button onclick="onAddProduct()">Add Product</button>
+            <button onclick="onAddProduct()" class="btn">Add Product</button>
             <div class="filter_product">
                 <label>Filter product:</label>
-                <select name="answer" id="correct">
-                    <option value="A">Banana</option>
-                    <option value="B">papaya</option>
-                    <option value="C">Apple</option>
+                <select name="filter-product" id="option_filter" >
+                    <option value="choose all category">Select one category</option>
                 </select>
             </div>
             <div class="search-product">
-                <input type="text" class="search_product" placeholder="Search category of product">
+                <input type="text" class="search" id="search_product" placeholder="Search category of product">
             </div>
         </div>
         <div class="table-product">
