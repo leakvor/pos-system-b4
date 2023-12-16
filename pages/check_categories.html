@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Category</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/category.js" defer></script>
+</head>
+
+<body>
+    <div class="nav_left">
+        <ul>
+            <li><a href="../index.html"></a>
+                <div class="group_icon">
+                    <i class="material-icons">dashboard</i>
+                    <span>Daseboard</span>
+                </div>
+            </li>
+            <li><a href="check_Product.html"></a>
+                <i class="material-icons">shopping_cart</i>
+                <span>Product</span>
+            </li>
+            <li><a href="check_categories.html"></a>
+                <i class="material-icons">reorder</i>
+                <span>Categories</span>
+            </li>
+            <li><a href="order.html"></a>
+                <i class="material-icons">add_shopping_cart</i>
+                <span>Order</span>
+            </li>
+        </ul>
+    </div>
+    <div class="nav_top">
+        <div class="logo">
+            <i class="material-icons">shopping_cart</i>
+            <h3>Pos-System</h3>
+        </div>
+
+    </div>
+    <div id="addcategory_dialog" style="display: none">
+        <dialog open>
+            <header>Create new Category</header>
+            <div class="group-input">
+                <label>Name: </label>
+                <input type="text" class="nameCategory">
+            </div>
+            <div class="group-input">
+                <label>Discription</label>
+                <textarea name="text" id="" cols="30" rows="2" class="descriptofCategory"></textarea>
+            </div>
+            <menu>
+                <button class="btn-click" onclick="onCancel()" >Cancel</button>
+                <button  class="btn-click" onclick="add_category()">Create</button>
+            </menu>
+        </dialog>
+    </div>
+    <div class="content-of-product">
+        <div class="content-product">
+            <button onclick="addCategory()" class="btn">Add Category</button>
+            <div class="search-Category">
+                <input type="text" class="search" id="search_category" placeholder="Search category of product">
+            </div>
+        </div>
+        <div class="table-category">
+            <table class="content-table-category">
+                <thead>
+                    <tr>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
