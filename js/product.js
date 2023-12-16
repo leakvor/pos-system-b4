@@ -227,6 +227,19 @@ const search_product = () => {
         }
     }
 }
+function filterProduct() {
+    let trs=document.querySelector('.content-table tbody').childNodes;
+    let selectedCategory = optionCategory.value;
+    for(const tr of trs){
+        let titleCategory=tr.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+        if(titleCategory.toLowerCase().includes(selectedCategory.toLowerCase())){
+            tr.style.display='';
+        }else{
+            tr.style.display='none'
+        }
+    }
+ }
+optionCategory.addEventListener('change',filterProduct)
 searchProduct.addEventListener("keyup",search_product)
 getProduct()
 showPoduct()
