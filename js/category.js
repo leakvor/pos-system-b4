@@ -71,7 +71,7 @@ function show_category() {
         let tdId = document.createElement('td');
         let tdName = document.createElement('td');
         let tdAction = document.createElement('td');
-        tdAction.className="act"
+        tdAction.className = "act"
 
         tdId.textContent = categoryData[i].id;
         tdName.textContent = categoryData[i].categoryName;
@@ -84,7 +84,7 @@ function show_category() {
         btnDel.className = "material-icons"
         btnDel.textContent = "delete_forever";
         btnDel.style = "font-size:30px;color:red"
-        // btnDel.addEventListener("click", deleteCategory)
+        btnDel.addEventListener("click", deleteCategory)
 
 
         tdAction.appendChild(btnEdit)
@@ -105,6 +105,18 @@ function clear() {
 }
 let tbody = document.querySelector('tbody');
 
+// ===================delete Category==================
+function deleteCategory(e) {
+    let isconfirm = confirm("Are you sure?")
+    if (isconfirm) {
+        let categoryId = e.target.closest('tr').firstElementChild.textContent;
+        let index = categoryData.findIndex(category => category.id === Number(categoryId));
+        categoryData.splice(index, 1);
+        saveStorage()
+        window.location.reload();
+    }
+    
+}
 getProduct()
 show_category()
 
