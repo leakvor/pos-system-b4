@@ -149,6 +149,20 @@ function updateCategory(index) {
     btnCreate.removeAttribute("onclick")
     btnCreate.setAttribute("onclick", addProduct)
 }
+//  ========================Search category==================================
+const search_Category = () => {
+    let tr = document.querySelector('.content-table-category tbody').childNodes
+    for (const tablerow of tr) {
+        console.log(tablerow.firstElementChild.nextElementSibling.textContent);
+        let title = tablerow.firstElementChild.nextElementSibling.textContent;
+        if (title.toLowerCase().includes(searchCategory.value.toLowerCase())) {
+            tablerow.style.display = ''
+        } else {
+            tablerow.style.display = 'none'
+        }
+    }
+}
+searchCategory.addEventListener("keyup",search_Category)
 getProduct()
 show_category()
 
