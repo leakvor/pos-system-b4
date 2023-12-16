@@ -17,9 +17,9 @@ let showpro = document.querySelector('.proName');
 let showCatategory = document.querySelector('.proCategory');
 let showQuantity = document.querySelector('.showquantity');
 let showStock = document.querySelector('.instock');
-let showNetprice=document.querySelector('.netprice');
-let showGrossprice=document.querySelector('.grossprice');
-let showDescription=document.querySelector('.showdescription');
+let showNetprice = document.querySelector('.netprice');
+let showGrossprice = document.querySelector('.grossprice');
+let showDescription = document.querySelector('.showdescription');
 // ===================Product Data===================
 let productDatas = [];
 let categoryData = [];
@@ -62,9 +62,9 @@ function addProduct() {
     hide(dialog_addproduct)
     uniqueId += 1;
     let object = {
-        id: uniqueId ,
+        id: uniqueId,
         productName: nameProduct.value,
-        category:selection.value,
+        category: selection.value,
         quantity: quantityProduct.value,
         gross_price: grossPrice.value,
         price: netPrice.value,
@@ -103,12 +103,12 @@ function showPoduct() {
         let tdQuantity = document.createElement('td');
         let tdPrice = document.createElement('td');
         let tdAction = document.createElement('td');
-        tdAction.className="act"
-        
+        tdAction.className = "act"
+
         let btnEdit = document.createElement('i');
         btnEdit.className = "fa fa-edit";
         btnEdit.style = "font-size:30px;color:blue"
-        // btnEdit.addEventListener("click", editProduct);
+        btnEdit.addEventListener("click", editProduct);
 
         let btnDel = document.createElement('i');
         btnDel.className = "material-icons"
@@ -117,8 +117,8 @@ function showPoduct() {
         // btnDel.addEventListener("click", deleteProduct)
 
         let btnView = document.createElement('i');
-        btnView.className="fa fa-eye";
-        btnView.style="font-size:30px;color:gray"
+        btnView.className = "fa fa-eye";
+        btnView.style = "font-size:30px;color:gray"
         btnView.addEventListener("click", viewProduct)
 
 
@@ -152,31 +152,69 @@ function clear() {
     quantityProduct.value = "";
     textarea.value = "";
 }
-getProduct()
-showPoduct()
-for(let j=0; j<categoryData.length; j++){
-    let option=document.createElement('option')
-    let option1=document.createElement('option')
-    option.setAttribute('value',categoryData[j].categoryName)
-    option1.setAttribute('value',categoryData[j].categoryName)
-    option.textContent=categoryData[j].categoryName;
-    option1.textContent=categoryData[j].categoryName;
-    selection.appendChild(option1)
-    optionCategory.appendChild(option) 
-}
+
 // localStorage.clear()
 // ====================view product========================================
 function viewProduct(event) {
     show(dialog_view)
     let productId = event.target.closest('tr').firstElementChild.textContent;
     let product = productDatas.find(product => product.id === Number(productId));
-    showpro.textContent=product.productName;
-    showCatategory.textContent=product.category;
-    showQuantity.textContent=product.quantity;
+    showpro.textContent = product.productName;
+    showCatategory.textContent = product.category;
+    showQuantity.textContent = product.quantity;
     console.log(showQuantity);
     console.log(product.quantity);
-    showNetprice.textContent=product.price;
-    showGrossprice.textContent=product.gross_price;
-    showDescription.textContent=product.description;
-    
+    showNetprice.textContent = product.price;
+    showGrossprice.textContent = product.gross_price;
+    showDescription.textContent = product.description;
+
+}
+// =================Edit Product=================================
+function editProduct(event) {
+    let productName = event.target.closest('tr').firstElementChild.nextElementSibling.textContent;
+    let index = productDatas.findIndex(product => product.productName === (productName));
+    let product = productDatas[index];
+    show(dialog_addproduct)
+
+    nameProduct.value = product.productName;
+    selection.value = product.category;
+    console.log(selection.value);
+    netPrice.value = product.price;
+    grossPrice.value = product.gross_price;
+    quantityProduct.value = product.quantity;
+    descript.textContent = product.description;
+
+    let btn = document.querySelector('menu').lastElementChild
+    btn.textContent = "Edit"
+    btn.removeAttribute("onclick")
+    btn.setAttribute("onclick", `updateProduct(${ index })`)
+}
+
+//  ===================Update Product========================
+function updateProduct(index) {
+    hide(dialog_addproduct)
+    productDatas[index].productName = nameProduct.value,
+        productDatas[index].category = selection.value,
+        productDatas[index].quantity = quantityProduct.value
+
+    saveStorage()
+    showPoduct()
+    window.location.reload()
+    let btnCreate = document.querySelector('menu').lastElementChild
+    btnCreate.textContent = "Create"
+    btnCreate.removeAttribute("onclick")
+    btnCreate.setAttribute("onclick", addProduct)
+}
+
+getProduct()
+showPoduct()
+for (let j = 0; j < categoryData.length; j++) {
+    let option = document.createElement('option')
+    let option1 = document.createElement('option')
+    option.setAttribute('value', categoryData[j].categoryName)
+    option1.setAttribute('value', categoryData[j].categoryName)
+    option.textContent = categoryData[j].categoryName;
+    option1.textContent = categoryData[j].categoryName;
+    selection.appendChild(option1)
+    optionCategory.appendChild(option)
 }
