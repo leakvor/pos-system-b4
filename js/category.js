@@ -78,7 +78,7 @@ function show_category() {
         let btnEdit = document.createElement('i');
         btnEdit.className = "fa fa-edit";
         btnEdit.style = "font-size:30px;color:blue"
-        // btnEdit.addEventListener("click", editCategory);
+        btnEdit.addEventListener("click", editCategory);
 
         let btnDel = document.createElement('i');
         btnDel.className = "material-icons"
@@ -116,6 +116,38 @@ function deleteCategory(e) {
         window.location.reload();
     }
     
+}
+// =================Edit Ctegory=================================
+function editCategory(event) {
+    let categoryName = event.target.closest('tr').firstElementChild.nextElementSibling.textContent;
+    let index = categoryData.findIndex(category => category.categoryName === categoryName);
+
+    console.log(index);
+    let category = categoryData[index];
+    console.log(category);
+    show(dialog_addCategory)
+
+    category_name.value = category.categoryName
+    category_description.textContent = category.categoryDescript
+
+    let btn = document.querySelector('menu').lastElementChild
+    btn.textContent = "Edit"
+    btn.removeAttribute("onclick")
+    btn.setAttribute("onclick", `updateCategory(${index})`)
+}
+//  ===================Update Product========================
+function updateCategory(index) {
+    hide(dialog_addCategory)
+    categoryData[index].categoryName = category_name.value,
+        categoryData[index].categoryDescript = category_description.value,
+
+        saveStorage()
+    show_category()
+    window.location.reload()
+    let btnCreate = document.querySelector('menu').lastElementChild
+    btnCreate.textContent = "Create"
+    btnCreate.removeAttribute("onclick")
+    btnCreate.setAttribute("onclick", addProduct)
 }
 getProduct()
 show_category()
