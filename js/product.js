@@ -114,7 +114,7 @@ function showPoduct() {
         btnDel.className = "material-icons"
         btnDel.textContent = "delete_forever";
         btnDel.style = "font-size:30px;color:red"
-        // btnDel.addEventListener("click", deleteProduct)
+        btnDel.addEventListener("click", deleteProduct)
 
         let btnView = document.createElement('i');
         btnView.className = "fa fa-eye";
@@ -204,6 +204,14 @@ function updateProduct(index) {
     btnCreate.textContent = "Create"
     btnCreate.removeAttribute("onclick")
     btnCreate.setAttribute("onclick", addProduct)
+}
+// ========================Delete Product=================================
+function deleteProduct(event) {
+    let productId = event.target.closest('tr').firstElementChild.textContent;
+    let index = productDatas.findIndex(product => product.id === Number(productId));
+    productDatas.splice(index, 1);
+    saveStorage()
+    window.location.reload();
 }
 
 getProduct()
