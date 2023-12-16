@@ -119,7 +119,7 @@ function showPoduct() {
         let btnView = document.createElement('i');
         btnView.className="fa fa-eye";
         btnView.style="font-size:30px;color:gray"
-        // btnView.addEventListener("click", viewProduct)
+        btnView.addEventListener("click", viewProduct)
 
 
 
@@ -163,4 +163,20 @@ for(let j=0; j<categoryData.length; j++){
     option1.textContent=categoryData[j].categoryName;
     selection.appendChild(option1)
     optionCategory.appendChild(option) 
+}
+// localStorage.clear()
+// ====================view product========================================
+function viewProduct(event) {
+    show(dialog_view)
+    let productId = event.target.closest('tr').firstElementChild.textContent;
+    let product = productDatas.find(product => product.id === Number(productId));
+    showpro.textContent=product.productName;
+    showCatategory.textContent=product.category;
+    showQuantity.textContent=product.quantity;
+    console.log(showQuantity);
+    console.log(product.quantity);
+    showNetprice.textContent=product.price;
+    showGrossprice.textContent=product.gross_price;
+    showDescription.textContent=product.description;
+    
 }

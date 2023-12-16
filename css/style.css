@@ -249,14 +249,14 @@ dialog label {
 }
 
 input {
-    padding: 3px;
+    padding: 2px;
     display: block;
     width: 90%;
     border: 1px solid #ccc;
     font-size: 1.1rem;
-    margin-top: 0.5rem;
+    margin-top: 10px;
     margin-left: 20px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2px;
 }
 
 textarea {
