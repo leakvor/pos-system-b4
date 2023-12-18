@@ -254,3 +254,4 @@ for (let j = 0; j < categoryData.length; j++) {
     selection.appendChild(option1)
     optionCategory.appendChild(option)
 }
+
