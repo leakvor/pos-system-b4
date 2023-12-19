@@ -135,7 +135,7 @@ function showAddChart() {
         let inputQty = document.createElement('input');
         inputQty.setAttribute('type', 'number');
         inputQty.value = cardall[i].qtyPro;
-        // inputQty.addEventListener('change', updateTiotal)
+        inputQty.addEventListener('change', updateTotal)
         tdQuantity.appendChild(inputQty);
 
         let tdPrice = document.createElement('td');
@@ -178,7 +178,24 @@ function delChartList(event) {
         }
     }
 }
-
+// ===================update total====================
+function updateTotal(event) {
+    let index = event.target.closest('tbody tr').dataset.index;
+    let chart=document.querySelectorAll('.card-pro');
+    let tr = event.target.closest('tbody tr');
+    let n=0
+    for (let i = 0; i < chart.length; i++) {
+        if (chart[i].firstElementChild.nextElementSibling.textContent == tr.firstElementChild.textContent){
+            n=i;
+            console.log(i);
+        }
+    }
+    cardall[index].qtyPro = event.target.value;
+    productDatas[n].quantity=parseInt(chart[n].lastElementChild.previousElementSibling.firstElementChild-event.target.value);
+    saveStorage()
+    showAddChart()
+    
+}
 searchprod.addEventListener('keyup', searchProduct)
 getProduct()
 showCardpro()
