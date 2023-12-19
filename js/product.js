@@ -2,7 +2,7 @@
 let dialog_addproduct = document.querySelector('#addProduct_dialog');
 let dialog_view = document.querySelector('#view_dialog');
 let optionCategory = document.querySelector('#option_filter');
-let stock=document.querySelector('.stockpro');
+
 let nameProduct = document.querySelector('.name');
 let nameCategory = document.querySelector('.category');
 let selection = document.querySelector('#optionOfcategory');
@@ -68,7 +68,6 @@ function addProduct() {
         category: selection.value,
         quantity: quantityProduct.value,
         gross_price: grossPrice.value,
-        stockprod:stock.value,
         price: netPrice.value,
         description: descript.value
     };
@@ -129,7 +128,7 @@ function showPoduct() {
         tdName.textContent = productDatas[i].productName;
         tdCategory.textContent = productDatas[i].category;
         tdQuantity.textContent = productDatas[i].quantity;
-        tdPrice.textContent = productDatas[i].gross_price;
+        tdPrice.textContent = productDatas[i].gross_price +"$";
         tdAction.appendChild(btnEdit)
         tdAction.appendChild(btnDel)
         tdAction.appendChild(btnView)
@@ -179,7 +178,6 @@ function editProduct(event) {
 
     nameProduct.value = product.productName;
     selection.value = product.category;
-    stock.value=product.stockprod;
     netPrice.value = product.price;
     grossPrice.value = product.gross_price;
     quantityProduct.value = product.quantity;

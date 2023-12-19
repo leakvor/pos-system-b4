@@ -51,7 +51,7 @@ function showCardpro() {
         Instock.textContent = "In stock: ";
         let stock = document.createElement('span');
         stock.setAttribute('id', 'stock');
-        stock.textContent = productDatas[i].stockprod;
+        stock.textContent = productDatas[i].quantity;
         Instock.appendChild(stock)
 
 
@@ -59,7 +59,7 @@ function showCardpro() {
         priceprod.textContent = "Price: ";
         let priceProd = document.createElement('span');
         priceProd.setAttribute('id', 'priceprod');
-        priceProd.textContent = productDatas[i].price;
+        priceProd.textContent = productDatas[i].price+"$";
         priceprod.appendChild(priceProd);
 
         let btnAddChart = document.createElement('button');
@@ -76,6 +76,24 @@ function showCardpro() {
         container.appendChild(cardPro)
     }
 }
-// searchprod.addEventListener('keyup', searchProduct)
+
+// ========================search product========================
+function searchProduct() {
+    let allCard = document.querySelectorAll('.card-pro');
+    for (let card of allCard) {
+        let id_product = card.firstElementChild.textContent;
+        let name_prooduct = card.firstElementChild.nextElementSibling.firstElementChild.textContent.toLowerCase();
+        console.log(name_prooduct);
+
+        if (name_prooduct.includes(searchprod.value.toLowerCase()) || id_product == searchprod.value) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    }
+
+}
+
+searchprod.addEventListener('keyup', searchProduct)
 getProduct()
 showCardpro()
