@@ -4,6 +4,7 @@ let checkout = document.querySelector('#checkout');
 let searchprod = document.querySelector("#search-id");
 let container = document.querySelector('.container');
 let container_card=document.createElement('div');
+let listCheckout = document.querySelector('.list-checkout');
 // ================Product Data======================
 let productDatas = [];
 let cardall=[];
@@ -17,8 +18,11 @@ function saveStorage() {
 function getProduct() {
     let productStroge = JSON.parse(localStorage.getItem("productDatas"));
     let cardallstorage = JSON.parse(localStorage.getItem("cardall"));
-    if (productStroge != undefined) {
+    if (productStroge != null) {
         productDatas = productStroge;
+        
+    }
+    if(cardallstorage !=null){
         cardall = cardallstorage;
     }
     else {
@@ -65,7 +69,7 @@ function showCardpro() {
         let btnAddChart = document.createElement('button');
         btnAddChart.setAttribute('class', 'btn-click')
         btnAddChart.textContent = "Add to chart";
-        // btnAddChart.addEventListener('click',addChart_prod)
+        btnAddChart.addEventListener('click',addChart)
 
         cardPro.appendChild(id_prod)
         cardPro.appendChild(name)
@@ -93,7 +97,76 @@ function searchProduct() {
     }
 
 }
+// ===============update pro================
+function addChart(e) {
+    let cart = e.target.closest(".card-pro").children;
+    let obj = {
+        idPro: cart[0].textContent,
+        namePro: cart[1].firstElementChild.textContent,
+        qtyPro: cart[2].firstElementChild.textContent,
+        pricePro: cart[3].firstElementChild.textContent,
+        total: parseInt(cart[2].firstElementChild.textContent * cart[3].firstElementChild.textContent.replace('$', ''))
+    }
+    cardall.push(obj);
+    saveStorage();
+    getProduct();
+    showAddChart();
+    // window.location.reload()
+}
+    // // =============Add product to chart======================
+function showAddChart() {
+    let result = 0;
+    let trs = document.querySelectorAll('tbody tr');
+    for (let tr of trs) {
+        tr.remove()
+    }
+    console.log(cardall);
+    for (let i = 0; i < cardall.length; i++) {
+        let tableRow = document.createElement('tr');
+        tableRow.dataset.index = i;
+        let tdId = document.createElement('td');
+        tdId.textContent = cardall[i].idPro;
+        // tdId.style.color = "white"
+
+        let tdName = document.createElement('td');
+        tdName.textContent = cardall[i].namePro;
+
+        let tdQuantity = document.createElement('td');
+        let inputQty = document.createElement('input');
+        inputQty.setAttribute('type', 'number');
+        inputQty.value = cardall[i].qtyPro;
+        // inputQty.addEventListener('change', updateTiotal)
+        tdQuantity.appendChild(inputQty);
+
+        let tdPrice = document.createElement('td');
+        tdPrice.textContent = cardall[i].pricePro;
+
+        let tdTotal = document.createElement('td');
+        tdTotal.textContent = parseInt(cardall[i].qtyPro * cardall[i].pricePro.replace('$', '')) + "$";
+        result += parseInt(cardall[i].qtyPro * cardall[i].pricePro.replace('$', ''))
+
+        let tdAction = document.createElement('td');
+        let btnDel = document.createElement('i');
+        btnDel.setAttribute("class", 'qty')
+        btnDel.className = "material-icons";
+        btnDel.textContent = "delete";
+        btnDel.style.color = "red";
+        // btnDel.addEventListener("click", delChartList)
+        tdAction.appendChild(btnDel);
+
+        // tableRow.appendChild(tdId)
+        tableRow.appendChild(tdName);
+        tableRow.appendChild(tdQuantity)
+        tableRow.appendChild(tdPrice);
+        tableRow.appendChild(tdTotal);
+        tableRow.appendChild(tdAction)
+        document.querySelector('tbody').appendChild(tableRow)
+    }
+    totalPrice.textContent = `${result}$`;
+}
+
 
 searchprod.addEventListener('keyup', searchProduct)
 getProduct()
 showCardpro()
+showAddChart()
