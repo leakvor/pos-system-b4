@@ -151,7 +151,7 @@ function showAddChart() {
         btnDel.className = "material-icons";
         btnDel.textContent = "delete";
         btnDel.style.color = "red";
-        // btnDel.addEventListener("click", delChartList)
+        btnDel.addEventListener("click", delChartList)
         tdAction.appendChild(btnDel);
 
         // tableRow.appendChild(tdId)
@@ -164,7 +164,20 @@ function showAddChart() {
     }
     totalPrice.textContent = `${result}$`;
 }
-
+// ==================remove chartList=====================
+function delChartList(event) {
+    let isConfirm = confirm("Are you sure to delete?")
+    if (isConfirm) {
+        let index = event.target.closest('tbody tr').dataset.index;
+        console.log(index);
+        if (index !== -1) {
+            cardall.splice(index, 1);
+            saveStorage();
+            getProduct();
+            showAddChart();
+        }
+    }
+}
 
 searchprod.addEventListener('keyup', searchProduct)
 getProduct()
