@@ -303,6 +303,9 @@ select {
     padding: 10px;
 }
 
+.filter_product{
+    margin-top: 15px;
+}
 .search,
 .filter_product select {
     border: 2px solid transparent;
@@ -314,6 +317,7 @@ select {
     background-color: #F3F3F3;
     border-radius: 10px;
     transition: all 0.5s;
+    box-shadow: 2px 2px 2px 2px rgb(233, 232, 232);
 }
 
 .search:hover,
