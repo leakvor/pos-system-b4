@@ -46,19 +46,24 @@ function onCancel(e) {
 }
 // ===============Add Category==========================
 function add_category() {
-    hide(dialog_addCategory)
-    uniqueId_category += 1
-    let object_category = {
-        id: uniqueId_category,
-        categoryName: category_name.value,
-        categoryDescript: category_description.value,
-    };
-    categoryData.push(object_category);
-    saveStorage();
-    getProduct();
-    show_category()
-    clear()
-    window.location.reload()
+    if (category_name.value && category_description.value != "") {
+        hide(dialog_addCategory)
+        uniqueId_category += 1
+        let object_category = {
+            id: uniqueId_category,
+            categoryName: category_name.value,
+            categoryDescript: category_description.value,
+        };
+        categoryData.push(object_category);
+        saveStorage();
+        getProduct();
+        show_category()
+        clear()
+        window.location.reload()
+    }else{
+        window.alert("Miss some information: Please fill the input");
+    }
+
 }
 // =================Showpoduct====================
 function show_category() {
@@ -115,7 +120,7 @@ function deleteCategory(e) {
         saveStorage()
         window.location.reload();
     }
-    
+
 }
 // =================Edit Ctegory=================================
 function editCategory(event) {
@@ -162,7 +167,7 @@ const search_Category = () => {
         }
     }
 }
-searchCategory.addEventListener("keyup",search_Category)
+searchCategory.addEventListener("keyup", search_Category)
 getProduct()
 show_category()
 

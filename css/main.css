@@ -157,7 +157,6 @@ a:hover {
     border-bottom: 1px solid #dddddd;
 }
 
-.content-table tbody tr:nth-child(even) ,
-.content-table-category tbody tr:nth-child(even) {
+.content-table-dase tbody tr:nth-child(even) {
     background-color: #f8f3f3;
 }

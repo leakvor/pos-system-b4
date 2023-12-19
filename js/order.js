@@ -3,11 +3,11 @@ let totalPrice = document.querySelector('#total_price');
 let checkout = document.querySelector('#checkout');
 let searchprod = document.querySelector("#search-id");
 let container = document.querySelector('.container');
-let container_card=document.createElement('div');
+let container_card = document.createElement('div');
 let listCheckout = document.querySelector('.list-checkout');
 // ================Product Data======================
 let productDatas = [];
-let cardall=[];
+let cardall = [];
 
 // ===============save localStorage==============================
 function saveStorage() {
@@ -20,9 +20,9 @@ function getProduct() {
     let cardallstorage = JSON.parse(localStorage.getItem("cardall"));
     if (productStroge != null) {
         productDatas = productStroge;
-        
+
     }
-    if(cardallstorage !=null){
+    if (cardallstorage != null) {
         cardall = cardallstorage;
     }
     else {
@@ -40,7 +40,7 @@ function showCardpro() {
         let id_prod = document.createElement('span')
         id_prod.setAttribute('id', 'nameprod')
         id_prod.textContent = productDatas[i].id
-        id_prod.style.color=" #ccc"
+        id_prod.style.color = " #ccc"
         idprod.appendChild(id_prod)
 
         let name = document.createElement('p');
@@ -63,13 +63,13 @@ function showCardpro() {
         priceprod.textContent = "Price: ";
         let priceProd = document.createElement('span');
         priceProd.setAttribute('id', 'priceprod');
-        priceProd.textContent = productDatas[i].price+"$";
+        priceProd.textContent = productDatas[i].price + "$";
         priceprod.appendChild(priceProd);
 
         let btnAddChart = document.createElement('button');
         btnAddChart.setAttribute('class', 'btn-click')
         btnAddChart.textContent = "Add to chart";
-        btnAddChart.addEventListener('click',addChart)
+        btnAddChart.addEventListener('click', addChart)
 
         cardPro.appendChild(id_prod)
         cardPro.appendChild(name)
@@ -87,7 +87,6 @@ function searchProduct() {
     for (let card of allCard) {
         let id_product = card.firstElementChild.textContent;
         let name_prooduct = card.firstElementChild.nextElementSibling.firstElementChild.textContent.toLowerCase();
-        console.log(name_prooduct);
 
         if (name_prooduct.includes(searchprod.value.toLowerCase()) || id_product == searchprod.value) {
             card.style.display = "";
@@ -97,7 +96,24 @@ function searchProduct() {
     }
 
 }
-// ===============update pro================
+// // ===============update pro================
+// function addChart(e) {
+//     let cart = e.target.closest(".card-pro").children;
+//     // let obj = {
+//     //     idPro: cart[0].textContent,
+//     //     namePro: cart[1].firstElementChild.textContent,
+//     //     qtyPro: cart[2].firstElementChild.textContent,
+//     //     pricePro: cart[3].firstElementChild.textContent,
+//     //     total: parseInt(cart[2].firstElementChild.textContent * cart[3].firstElementChild.textContent.replace('$', ''))
+//     // }
+//     // cardall.push(obj);
+//     // getProduct();
+//     // saveStorage();
+//     // showAddChart();
+//     console.log(cart);
+// }
+// console.log(cardall);
+
 function addChart(e) {
     let cart = e.target.closest(".card-pro").children;
     let obj = {
@@ -113,14 +129,16 @@ function addChart(e) {
     showAddChart();
     // window.location.reload()
 }
-    // // =============Add product to chart======================
+
+// window.location.reload()
+
+// // =============Add product to chart======================
 function showAddChart() {
     let result = 0;
     let trs = document.querySelectorAll('tbody tr');
     for (let tr of trs) {
         tr.remove()
     }
-    console.log(cardall);
     for (let i = 0; i < cardall.length; i++) {
         let tableRow = document.createElement('tr');
         tableRow.dataset.index = i;
@@ -169,7 +187,6 @@ function delChartList(event) {
     let isConfirm = confirm("Are you sure to delete?")
     if (isConfirm) {
         let index = event.target.closest('tbody tr').dataset.index;
-        console.log(index);
         if (index !== -1) {
             cardall.splice(index, 1);
             saveStorage();
@@ -181,22 +198,22 @@ function delChartList(event) {
 // ===================update total====================
 function updateTotal(event) {
     let index = event.target.closest('tbody tr').dataset.index;
-    let chart=document.querySelectorAll('.card-pro');
-    let tr = event.target.closest('tbody tr');
-    let n=0
-    for (let i = 0; i < chart.length; i++) {
-        if (chart[i].firstElementChild.nextElementSibling.textContent == tr.firstElementChild.textContent){
-            n=i;
-            console.log(i);
-        }
-    }
     cardall[index].qtyPro = event.target.value;
-    productDatas[n].quantity=parseInt(chart[n].lastElementChild.previousElementSibling.firstElementChild-event.target.value);
     saveStorage()
     showAddChart()
+
+}
+function checkOut() {
+    let trs = document.querySelectorAll('tbody tr');
+    for (let tr of trs) {
+        tr.remove()
+    }
     
 }
-searchprod.addEventListener('keyup', searchProduct)
+    
+searchprod.addEventListener('keyup', searchProduct);
+checkout.addEventListener('click', checkOut);
 getProduct()
 showCardpro()
 showAddChart()
+// localStorage.clear()

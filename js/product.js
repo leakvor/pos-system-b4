@@ -2,7 +2,6 @@
 let dialog_addproduct = document.querySelector('#addProduct_dialog');
 let dialog_view = document.querySelector('#view_dialog');
 let optionCategory = document.querySelector('#option_filter');
-
 let nameProduct = document.querySelector('.name');
 let nameCategory = document.querySelector('.category');
 let selection = document.querySelector('#optionOfcategory');
@@ -60,23 +59,28 @@ function getProduct() {
 }
 // ===============Add_product==================
 function addProduct() {
-    hide(dialog_addproduct)
     uniqueId += 1;
-    let object = {
-        id: uniqueId,
-        productName: nameProduct.value,
-        category: selection.value,
-        quantity: quantityProduct.value,
-        gross_price: grossPrice.value,
-        price: netPrice.value,
-        description: descript.value
-    };
-    productDatas.push(object);
-    saveStorage();
-    getProduct();
-    showPoduct()
-    clear()
-    window.location.reload()
+    if (nameProduct.value && grossPrice.value && quantityProduct.value && netPrice.value && descript.value != '') {
+        hide(dialog_addproduct)
+        let object = {
+            id: uniqueId,
+            productName: nameProduct.value,
+            category: selection.value,
+            quantity: quantityProduct.value,
+            gross_price: grossPrice.value,
+            price: netPrice.value,
+            description: descript.value
+        };
+        productDatas.push(object);
+        saveStorage();
+        getProduct();
+        showPoduct()
+        clear()
+        window.location.reload()
+    }else{
+        window.alert('Miss some information: Please fill the input')
+    }
+
 }
 
 // =======================add product===========================
@@ -128,7 +132,7 @@ function showPoduct() {
         tdName.textContent = productDatas[i].productName;
         tdCategory.textContent = productDatas[i].category;
         tdQuantity.textContent = productDatas[i].quantity;
-        tdPrice.textContent = productDatas[i].gross_price +"$";
+        tdPrice.textContent = productDatas[i].gross_price + "$";
         tdAction.appendChild(btnEdit)
         tdAction.appendChild(btnDel)
         tdAction.appendChild(btnView)
@@ -150,7 +154,6 @@ function clear() {
     nameProduct.value = "";
     netPrice.value = "";
     grossPrice.value = "";
-    stock.value="";
     quantityProduct.value = "";
     textarea.value = "";
 }
@@ -164,8 +167,8 @@ function viewProduct(event) {
     showpro.textContent = product.productName;
     showCatategory.textContent = product.category;
     showQuantity.textContent = product.quantity;
-    showNetprice.textContent = product.price;
-    showGrossprice.textContent = product.gross_price;
+    showNetprice.textContent = product.price + "$";
+    showGrossprice.textContent = product.gross_price + "$";
     showDescription.textContent = product.description;
 
 }
@@ -186,17 +189,20 @@ function editProduct(event) {
     let btn = document.querySelector('menu').lastElementChild
     btn.textContent = "Edit"
     btn.removeAttribute("onclick")
-    btn.setAttribute("onclick", `updateProduct(${ index })`)
+    btn.setAttribute("onclick", `updateProduct(${index})`)
 }
 
 //  ===================Update Product========================
 function updateProduct(index) {
     hide(dialog_addproduct)
     productDatas[index].productName = nameProduct.value,
+        productDatas[index].price = netPrice.value,
+        productDatas[index].gross_price = grossPrice.value,
         productDatas[index].category = selection.value,
-        productDatas[index].quantity = quantityProduct.value
+        productDatas[index].quantity = quantityProduct.value,
+        productDatas[index].description = descript.value,
 
-    saveStorage()
+        saveStorage()
     showPoduct()
     window.location.reload()
     let btnCreate = document.querySelector('menu').lastElementChild
@@ -206,18 +212,21 @@ function updateProduct(index) {
 }
 // ========================Delete Product=================================
 function deleteProduct(event) {
-    let productId = event.target.closest('tr').firstElementChild.textContent;
-    let index = productDatas.findIndex(product => product.id === Number(productId));
-    productDatas.splice(index, 1);
-    saveStorage()
-    window.location.reload();
+    let isConfirm = confirm("Are you sure to delete?");
+    if (isConfirm) {
+        let productId = event.target.closest('tr').firstElementChild.textContent;
+        let index = productDatas.findIndex(product => product.id === Number(productId));
+        productDatas.splice(index, 1);
+        saveStorage()
+        window.location.reload();
+    }
+
 }
 
 //  ========================Search Product==================================
 const search_product = () => {
     let tr = document.querySelector('.content-table tbody').childNodes
     for (const tablerow of tr) {
-        console.log(tablerow.firstElementChild.nextElementSibling.textContent);
         let title = tablerow.firstElementChild.nextElementSibling.textContent;
         if (title.toLowerCase().includes(searchProduct.value.toLowerCase())) {
             tablerow.style.display = ''
@@ -227,19 +236,20 @@ const search_product = () => {
     }
 }
 function filterProduct() {
-    let trs=document.querySelector('.content-table tbody').childNodes;
+    let trs = document.querySelector('.content-table tbody').childNodes;
     let selectedCategory = optionCategory.value;
-    for(const tr of trs){
-        let titleCategory=tr.firstElementChild.nextElementSibling.nextElementSibling.textContent;
-        if(titleCategory.toLowerCase().includes(selectedCategory.toLowerCase())){
-            tr.style.display='';
-        }else{
-            tr.style.display='none'
+    for (const tr of trs) {
+        let titleCategory = tr.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+        if (titleCategory.toLowerCase().includes(selectedCategory.toLowerCase())) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none'
         }
     }
- }
-optionCategory.addEventListener('change',filterProduct)
-searchProduct.addEventListener("keyup",search_product)
+}
+
+optionCategory.addEventListener('change', filterProduct)
+searchProduct.addEventListener("keyup", search_product)
 getProduct()
 showPoduct()
 for (let j = 0; j < categoryData.length; j++) {
@@ -252,4 +262,5 @@ for (let j = 0; j < categoryData.length; j++) {
     selection.appendChild(option1)
     optionCategory.appendChild(option)
 }
+// localStorage.clear()
 
