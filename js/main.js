@@ -1,9 +1,16 @@
+let in_stock=document.querySelector('.stock');
+let Category_total=document.querySelector('.Category');
+let sold_out=document.querySelector('.sold_out');
+let inCome=document.querySelector('.income');
+
+
 
 // ===============save localStorage==============================
 function saveStorage() {
     localStorage.setItem("categoryData", JSON.stringify(categoryData));
     localStorage.setItem("productDatas", JSON.stringify(productDatas));
     localStorage.setItem("idpro", JSON.stringify(uniqueId));
+    localStorage.setItem('totalPricesList', JSON.stringify(totalPricesList));
 }
 
 
@@ -12,10 +19,12 @@ function getProduct() {
     let categoryStorage = JSON.parse(localStorage.getItem("categoryData"));
     let productStroge = JSON.parse(localStorage.getItem("productDatas"));
     let uniqueIdStorage = JSON.parse(localStorage.getItem("idpro"));
+    let orderPrice=JSON.parse(localStorage.getItem("totalPricesList"))
     if (productStroge != undefined) {
         categoryData = categoryStorage;
         productDatas = productStroge;
         uniqueId = uniqueIdStorage;
+        totalPricesList=orderPrice;
     }
     else {
         saveStorage()
@@ -34,19 +43,8 @@ function showPoduct() {
         let tdCategory = document.createElement('td');
         let tdPrice = document.createElement('td');
         let tdAmount=document.createElement('td');
-        let tdselprogress=document.createElement('td');
 
-        if(i%2==0){
-            let icon=document.querySelector('i');
-            icon.className="material-icons";
-            icon.textContent="call_made";
-            tdselprogress.appendChild(icon);
-        }else{
-            let icons=document.querySelector('i');
-            icons.className="material-icons";
-            icons.textContent="call_received";
-            tdselprogress.appendChild(icons);
-        }
+        
         tdId.textContent = productDatas[i].id;
         tdName.textContent = productDatas[i].productName;
         tdCategory.textContent = productDatas[i].category;
@@ -58,13 +56,14 @@ function showPoduct() {
         tableRow.appendChild(tdCategory);
         tableRow.appendChild(tdPrice);
         tableRow.appendChild(tdAmount);
-        tableRow.appendChild(tdselprogress)
 
         document.querySelector("tbody").appendChild(tableRow);
 
     }
 }
-console.log(document.querySelector('table'));
+
+
+// console.log(document.querySelector('table'));
 function clear() {
     nameProduct.value = "";
     nameCategory.value = "";
@@ -76,4 +75,14 @@ function clear() {
 let tbody = document.querySelector('tbody');
 
 getProduct()
+let allprice=0;
+for (let i = 0; i < productDatas.length; i++){
+    allprice+= productDatas[i].price
+}
+in_stock.textContent= productDatas.length ;
+Category_total.textContent=categoryData.length;
+sold_out.textContent=totalPricesList.length;
+inCome.textContent=allprice +" $";
+
 showPoduct()
+
